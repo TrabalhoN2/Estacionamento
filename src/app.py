@@ -3,8 +3,7 @@ import sys
 sys.path.append('../')
 
 from PyQt5.QtWidgets import QApplication, QMainWindow
-from tools.mongo import *
-#buscarCliente, buscarFuncionario, cadastroCliente, cadastroFuncionario, inserirVaga, listarVagasDB, vagasDB, updateVaga
+from tools.mongo import buscarCliente, buscarFuncionario, cadastroCliente, cadastroFuncionario, inserirVaga, listarVagasDB, vagasDB, updateVaga
 
 from src.funcionario.homeFuncionario import *
 from src.funcionario.cadastrosFuncionario import *
@@ -28,7 +27,7 @@ from src.confirmarPagamento import *
 from src.confirmarAlteracao import *
 
 
-class HomeFuncionario(QMainWindow):
+class telaHomeFuncionario(QMainWindow):
     def __init__(self):
         super().__init__()
         self.ui = Ui_HomeFuncionario()
@@ -43,31 +42,31 @@ class HomeFuncionario(QMainWindow):
 
     @QtCore.pyqtSlot()
     def mudarJanelaCadastros(self):
-        self.janelaCadastros = CadastrosFuncionario()
+        self.janelaCadastros = telaCadastrosFuncionario()
         self.janelaCadastros.show()
         self.hide()
 
     @QtCore.pyqtSlot()
     def mudarJanelaVagas(self):
-        self.janelaVagas = VagasFuncionario()
+        self.janelaVagas = telaVagasFuncionario()
         self.janelaVagas.show()
         self.hide()
 
     @QtCore.pyqtSlot()
     def mudarJanelaEstacionamento(self):
-        self.janelaEstacionamento = EstacionamentoFuncionario()
+        self.janelaEstacionamento = telaEstacionamentoFuncionario()
         self.janelaEstacionamento.show()
         self.hide()
 
     @QtCore.pyqtSlot()
     def mudarJanelaAlugar(self):
-        self.janelaAlugueis = AlugarFuncionario()
+        self.janelaAlugueis = telaAlugarFuncionario()
         self.janelaAlugueis.show()
         self.hide()
 
     @QtCore.pyqtSlot()
     def mudarJanelaReservar(self):
-        self.janelaReserva = ReservarFuncionario()
+        self.janelaReserva = telaReservarFuncionario()
         self.janelaReserva.show()
         self.hide()
 
@@ -76,7 +75,7 @@ class HomeFuncionario(QMainWindow):
         self.close()
 
 
-class CadastrosFuncionario(QMainWindow):
+class telaCadastrosFuncionario(QMainWindow):
     def __init__(self):
         super().__init__()
         self.ui = Ui_CadastrosFuncionario()
@@ -91,19 +90,19 @@ class CadastrosFuncionario(QMainWindow):
     
     @QtCore.pyqtSlot()
     def mudarJanelaHomeFuncionario(self):
-        self.janelaHomeFuncionario = HomeFuncionario()
+        self.janelaHomeFuncionario = telaHomeFuncionario()
         self.janelaHomeFuncionario.show()
         self.close()
 
     @QtCore.pyqtSlot()
     def mudarJanelaVagasFuncionario(self):
-        self.janelaVagas = VagasFuncionario()
+        self.janelaVagas = telaVagasFuncionario()
         self.janelaVagas.show()
         self.close()
     
     @QtCore.pyqtSlot()
     def mudarJanelaEstacionamentoFuncionario(self):
-        self.janelaEstacionamento = EstacionamentoFuncionario()
+        self.janelaEstacionamento = telaEstacionamentoFuncionario()
         self.janelaEstacionamento.show()
         self.close()
 
@@ -113,12 +112,12 @@ class CadastrosFuncionario(QMainWindow):
 
     @QtCore.pyqtSlot()
     def novoCadastro(self):
-        self.janelaRealizarCadastro = RealizarCadastroFuncionario()
+        self.janelaRealizarCadastro = telaRealizarCadastroFuncionario()
         self.janelaRealizarCadastro.show()
         self.close()
 
 
-class VagasFuncionario(QMainWindow):
+class telaVagasFuncionario(QMainWindow):
     def __init__(self):
         super().__init__()
         self.ui = Ui_VagasFuncionario()
@@ -137,19 +136,19 @@ class VagasFuncionario(QMainWindow):
     
     @QtCore.pyqtSlot()
     def mudarJanelaHomeFuncionario(self):
-        self.janelaHomeFuncionario = HomeFuncionario()
+        self.janelaHomeFuncionario = telaHomeFuncionario()
         self.janelaHomeFuncionario.show()
         self.close()
 
     @QtCore.pyqtSlot()
     def mudarJanelaCadastrosFuncionario(self):
-        self.janelaCadastrosFuncionario = CadastrosFuncionario()
+        self.janelaCadastrosFuncionario = telaCadastrosFuncionario()
         self.janelaCadastrosFuncionario.show()
         self.close()
     
     @QtCore.pyqtSlot()
     def mudarJanelaEstacionamentoFuncionario(self):
-        self.janelaEstacionamentoFuncionario = EstacionamentoFuncionario()
+        self.janelaEstacionamentoFuncionario = telaEstacionamentoFuncionario()
         self.janelaEstacionamentoFuncionario.show()
         self.close()
 
@@ -159,25 +158,25 @@ class VagasFuncionario(QMainWindow):
 
     @QtCore.pyqtSlot()
     def mudarStatus(self):
-        self.janelaMudarStatus = MudarStatusFuncionario()
+        self.janelaMudarStatus = telaMudarStatusFuncionario()
         self.janelaMudarStatus.show()
         self.close()
 
 
     @QtCore.pyqtSlot()
     def alugarVaga(self):
-        self.janelaAlugarVaga = AlugarFuncionario()
+        self.janelaAlugarVaga = telaAlugarFuncionario()
         self.janelaAlugarVaga.show()
         self.close()
     
     @QtCore.pyqtSlot()
     def reservarVaga(self):
-        self.janelaReservarVaga = ReservarFuncionario()
+        self.janelaReservarVaga = telaReservarFuncionario()
         self.janelaReservarVaga.show()
         self.close()
 
 
-class EstacionamentoFuncionario(QMainWindow):
+class telaEstacionamentoFuncionario(QMainWindow):
     def __init__(self):
         super().__init__()
         self.ui = Ui_EstacionamentoFuncionario()
@@ -196,31 +195,31 @@ class EstacionamentoFuncionario(QMainWindow):
 
     @QtCore.pyqtSlot()
     def mudarJanelaHomeFuncionario(self):
-        self.janelaHomeFuncionario = HomeFuncionario()
+        self.janelaHomeFuncionario = telaHomeFuncionario()
         self.janelaHomeFuncionario.show()
         self.close()
 
     @QtCore.pyqtSlot()
     def mudarJanelaCadastrosFuncionario(self):
-        self.janelaCadastros = CadastrosFuncionario()
+        self.janelaCadastros = telaCadastrosFuncionario()
         self.janelaCadastros.show()
         self.close()
 
     @QtCore.pyqtSlot()
     def mudarJanelaVagasFuncionario(self):
-        self.janelaVagas = VagasFuncionario()
+        self.janelaVagas = telaVagasFuncionario()
         self.janelaVagas.show()
         self.close()
 
     @QtCore.pyqtSlot()
     def mudarJanelaAlugarFuncionario(self):
-        self.janelaAlugar = AlugarFuncionario()
+        self.janelaAlugar = telaAlugarFuncionario()
         self.janelaAlugar.show()
         self.close()
 
     @QtCore.pyqtSlot()
     def mudarJanelaReservarFuncionario(self):
-        self.janelaReservar = ReservarFuncionario()
+        self.janelaReservar = telaReservarFuncionario()
         self.janelaReservar.show()
         self.close()
 
@@ -230,12 +229,12 @@ class EstacionamentoFuncionario(QMainWindow):
 
     @QtCore.pyqtSlot()
     def mudarJanelaMudarStatus(self):
-        self.janelaMudarStatus = MudarStatusFuncionario()
+        self.janelaMudarStatus = telaMudarStatusFuncionario()
         self.janelaMudarStatus.show()
         self.close()
 
 
-class MudarStatusFuncionario(QMainWindow):
+class telaMudarStatusFuncionario(QMainWindow):
     def __init__(self):
         super().__init__()
         self.ui = Ui_MudarStatusFuncionario()
@@ -261,18 +260,18 @@ class MudarStatusFuncionario(QMainWindow):
 
     @QtCore.pyqtSlot()
     def confirmarAlteracao(self):
-        self.alteracao = ConfirmarAlteracao()
+        self.alteracao = telaConfirmarAlteracao()
         self.alteracao.show()
         self.close()
 
     @QtCore.pyqtSlot()
     def cancelarAlteracao(self):
-        self.janelaHomeFuncionario = HomeFuncionario()
+        self.janelaHomeFuncionario = telaHomeFuncionario()
         self.janelaHomeFuncionario.show()
         self.close()
 
 
-class AlugarFuncionario(QMainWindow):
+class telaAlugarFuncionario(QMainWindow):
     def __init__(self):
         super().__init__()
         self.ui = Ui_AlugarVaga()
@@ -308,27 +307,27 @@ class AlugarFuncionario(QMainWindow):
     @QtCore.pyqtSlot()
     def confirmar(self):
         documento = {
-            'Nome': self.getNome(),
-            'Placa': self.getPlaca(),
-            'Vaga': self.getNumeroVaga(),
+            'Nome': str(self.getNome()),
+            'Placa': str(self.getPlaca()),
+            'Vaga': str(self.getNumeroVaga()),
             'Status': 'Alugada',
-            'Data': self.getData(),
-            'Tempo': self.getIntervaloTempo(),
-            'Aluguel': self.getValor(),
+            'Data': str(self.getData()),
+            'Tempo': str(self.getIntervaloTempo()),
+            'Aluguel': str(self.getValor()),
         }
         updateVaga(documento)
-        self.confirmacaoPagamento = ConfirmacaoPagamento()
+        self.confirmacaoPagamento = telaConfirmacaoPagamento()
         self.confirmacaoPagamento.show()
         self.close()
 
     @QtCore.pyqtSlot()
     def cancelar(self):
-        self.janelaHomeFuncionario = HomeFuncionario()
+        self.janelaHomeFuncionario = telaHomeFuncionario()
         self.janelaHomeFuncionario.show()
         self.close()
 
 
-class ReservarFuncionario(QMainWindow):
+class telaReservarFuncionario(QMainWindow):
     def __init__(self):
         super().__init__()
         self.ui = Ui_ReservarVaga()
@@ -360,27 +359,27 @@ class ReservarFuncionario(QMainWindow):
     @QtCore.pyqtSlot()
     def confirmar(self):
         documento = {
-            'Nome': self.getNome(),
-            'Placa': self.getPlaca(),
+            'Nome': str(self.getNome()),
+            'Placa': str(self.getPlaca()),
             'Status': 'Reservada',
-            'Vaga': self.getNumeroVaga(),
-            'Data': self.getData(),
-            'Tempo': self.getIntervaloTempo(),
+            'Vaga': str(self.getNumeroVaga()),
+            'Data': str(self.getData()),
+            'Tempo': str(self.getIntervaloTempo()),
             'Aluguel': "",
         }
         updateVaga(documento)
-        self.janelaConfirmarReserva = ConfirmarReserva()
+        self.janelaConfirmarReserva = telaConfirmarReserva()
         self.janelaConfirmarReserva.show()
         self.close()
     
     @QtCore.pyqtSlot()
     def cancelar(self):
-        self.janelaHomeFuncionario = HomeFuncionario()
+        self.janelaHomeFuncionario = telaHomeFuncionario()
         self.janelaHomeFuncionario.show()
         self.close()
 
 
-class RealizarCadastroFuncionario(QMainWindow):
+class telaRealizarCadastroFuncionario(QMainWindow):
     def __init__(self):
         super().__init__()
         self.ui = Ui_CadastrarCliente()
@@ -416,19 +415,19 @@ class RealizarCadastroFuncionario(QMainWindow):
     @QtCore.pyqtSlot()
     def salvar(self):           # Função que envia um documento para o MongoDB(base de dados)
         documento = {'Nome': str(self.getNomeCompleto()),
-                     'CPF': self.getCPF(),
-                     'Placa': self.getPlacaVeiculo(),
-                     'Telefone': self.getNumeroTelefone(),
-                     'Endereco': self.getEndereco(),
-                     'VIP': self.getCategoria()
+                     'CPF': str(self.getCPF()),
+                     'Placa': str(self.getPlacaVeiculo()),
+                     'Telefone': str(self.getNumeroTelefone()),
+                     'Endereco': str(self.getEndereco()),
+                     'VIP': str(self.getCategoria())
                     }
         cadastroCliente(documento)     
-        self.janelaCadastro = CadastrosFuncionario()
+        self.janelaCadastro = telaCadastrosFuncionario()
         self.janelaCadastro.show()
         self.close()
 
 
-class Login(QMainWindow):
+class telaLogin(QMainWindow):
     def __init__(self):
         super().__init__()
         self.ui = Ui_Login()
@@ -457,17 +456,17 @@ class Login(QMainWindow):
 
     @QtCore.pyqtSlot()
     def mudarJanelaCadastrar(self):
-        self.janelaCadastro = CadastroFuncionario()  # Cria uma referência para a janela de cadastro
+        self.janelaCadastro = telaCadastroFuncionario()  # Cria uma referência para a janela de cadastro
         self.janelaCadastro.show()  # Chama a janela de cadastro
         self.hide()  # Esconde a janela de login
 
     @QtCore.pyqtSlot()
     def entrarCliente(self):
         if self.checarCampos():
-            usuario = self.getUsuario()
-            senha = self.getSenha()
+            usuario = str(self.getUsuario())
+            senha = str(self.getSenha())
             if (buscarCliente(usuario, senha)):
-                self.janelaHomeCliente = HomeCliente()
+                self.janelaHomeCliente = telaHomeCliente()
                 self.janelaHomeCliente.show()
                 self.close()
             else:
@@ -482,10 +481,10 @@ class Login(QMainWindow):
     @QtCore.pyqtSlot()
     def entrarFuncionario(self):
         if self.checarCampos():
-            usuario = self.getUsuario()
-            senha = self.getSenha()
+            usuario = str(self.getUsuario())
+            senha = str(self.getSenha())
             if (buscarFuncionario(usuario, senha)):
-                self.janelaHomeFuncionario = HomeFuncionario()
+                self.janelaHomeFuncionario = telaHomeFuncionario()
                 self.janelaHomeFuncionario.show()
                 self.close()
             else:
@@ -523,7 +522,7 @@ class Login(QMainWindow):
             return True
 
 
-class CadastroFuncionario(QMainWindow):
+class telaCadastroFuncionario(QMainWindow):
     def __init__(self):
         super().__init__()
         self.ui = Ui_CadastrarFuncionario()
@@ -534,13 +533,13 @@ class CadastroFuncionario(QMainWindow):
 
     @QtCore.pyqtSlot()
     def mudarJanelaLogin(self):          # Função que esconde a janela de cadastro após o cadastro e volta para a de login
-        self.telaLogin = Login()
+        self.telaLogin = telaLogin()
         self.telaLogin.show()
         self.close()
 
     @QtCore.pyqtSlot()
     def closeEvent(self, evento):   # Função que fecha a janela de cadastro e volta para a de login
-        self.telaLogin = Login()
+        self.telaLogin = telaLogin()
         self.telaLogin.show()
         evento.accept()
 
@@ -555,13 +554,13 @@ class CadastroFuncionario(QMainWindow):
     @QtCore.pyqtSlot()       # Função que envia um documento para o MongoDB(base de dados)
     def cadastrarFuncionario(self):
         documento = {
-            "UserName": self.getNome(),
-            "Password": self.getSenha(),
+            "UserName": str(self.getNome()),
+            "Password": str(self.getSenha()),
         }
         cadastroFuncionario(documento)
 
 
-class ConfirmacaoPagamento(QMainWindow):
+class telaConfirmacaoPagamento(QMainWindow):
     def __init__(self):
         super().__init__()
         self.ui = Ui_ConfirmacaoPagamento()
@@ -572,18 +571,18 @@ class ConfirmacaoPagamento(QMainWindow):
     
     @QtCore.pyqtSlot()
     def confirmar(self):
-        self.janelaConfirmar = ConfirmarPagamento()
+        self.janelaConfirmar = telaConfirmarPagamento()
         self.janelaConfirmar.show()
         self.close()
     
     @QtCore.pyqtSlot()
     def cancelar(self):
-        self.janelaHome = HomeFuncionario()
+        self.janelaHome = telaHomeFuncionario()
         self.janelaHome.show()
         self.close()
 
 
-class ConfirmarPagamento(QMainWindow):
+class telaConfirmarPagamento(QMainWindow):
     def __init__(self):
         super().__init__()
         self.ui = Ui_ConfirmarPagamento()
@@ -593,12 +592,12 @@ class ConfirmarPagamento(QMainWindow):
 
     @QtCore.pyqtSlot()
     def fechar(self):
-        self.janelaHome = HomeFuncionario()
+        self.janelaHome = telaHomeFuncionario()
         self.janelaHome.show()
         self.close()
 
 
-class ConfirmarAlteracao(QMainWindow):
+class telaConfirmarAlteracao(QMainWindow):
     def __init__(self):
         super().__init__()
         self.ui = Ui_ConfirmarAlteracao()
@@ -608,12 +607,12 @@ class ConfirmarAlteracao(QMainWindow):
 
     @QtCore.pyqtSlot()
     def fechar(self):
-        self.janelaHome = HomeFuncionario()
+        self.janelaHome = telaHomeFuncionario()
         self.janelaHome.show()
         self.close()
 
 
-class ConfirmarReserva(QMainWindow):
+class telaConfirmarReserva(QMainWindow):
     def __init__(self):
         super().__init__()
         self.ui = Ui_ConfirmarReserva()
@@ -623,12 +622,12 @@ class ConfirmarReserva(QMainWindow):
 
     @QtCore.pyqtSlot()
     def fechar(self):
-        self.janelaHomeFuncionario = HomeFuncionario()
+        self.janelaHomeFuncionario = telaHomeFuncionario()
         self.janelaHomeFuncionario.show()
         self.close()
 
 
-class HomeCliente(QMainWindow):
+class telaHomeCliente(QMainWindow):
     def __init__(self):
         super().__init__()
         self.ui = Ui_HomeCliente()
@@ -641,19 +640,19 @@ class HomeCliente(QMainWindow):
 
     @QtCore.pyqtSlot()
     def mudarJanelaVagas(self):
-        self.janelaVagas = VagasCliente()
+        self.janelaVagas = telaVagasCliente()
         self.janelaVagas.show()
         self.hide()
     
     @QtCore.pyqtSlot()
     def mudarJanelaEstacionamento(self):
-        self.janelaEstacionamento = EstacionamentoCliente()
+        self.janelaEstacionamento = telaEstacionamentoCliente()
         self.janelaEstacionamento.show()
         self.hide()
     
     @QtCore.pyqtSlot()
     def mudarJanelaReserva(self):
-        self.janelaReserva = MinhaReserva()
+        self.janelaReserva = telaMinhaReserva()
         self.janelaReserva.show()
         self.hide()
 
@@ -662,7 +661,7 @@ class HomeCliente(QMainWindow):
         self.close()
 
 
-class VagasCliente(QMainWindow):
+class telaVagasCliente(QMainWindow):
     def __init__(self):
         super().__init__()
         self.ui = Ui_VagasCliente()
@@ -690,31 +689,31 @@ class VagasCliente(QMainWindow):
     
     @QtCore.pyqtSlot()
     def mudarJanelaHomeCliente(self):
-        self.janelaHomeCliente = HomeCliente()
+        self.janelaHomeCliente = telaHomeCliente()
         self.janelaHomeCliente.show()
         self.close()
     
     @QtCore.pyqtSlot()
     def mudarJanelaEstacionamentoCliente(self):
-        self.janelaEstacionamento = EstacionamentoCliente()
+        self.janelaEstacionamento = telaEstacionamentoCliente()
         self.janelaEstacionamento.show()
         self.close()
 
     @QtCore.pyqtSlot()
     def mudarJanelaMinhaReserva(self):
-        self.janelaMinhaReserva = MinhaReserva()
+        self.janelaMinhaReserva = telaMinhaReserva()
         self.janelaMinhaReserva.show()
         self.close()
 
     @QtCore.pyqtSlot()
     def mudarJanelaAlugarVaga(self):
-        #self.janelaAlugar = AlugarVagasCliente()
+        #self.janelaAlugar = telaAlugarVagasCliente()
         self.janelaAlugar.show()
         self.hide()
 
     @QtCore.pyqtSlot()
     def mudarJanelaReservarVaga(self):
-        #self.janelaReserva = ReservarVagasCliente()
+        #self.janelaReserva = telaReservarVagasCliente()
         self.janelaReserva.show()
         self.hide()
 
@@ -723,7 +722,7 @@ class VagasCliente(QMainWindow):
         self.close()
 
 
-class EstacionamentoCliente(QMainWindow):
+class telaEstacionamentoCliente(QMainWindow):
     def __init__(self):
         super().__init__()
         self.ui = Ui_EstacionamentoCliente()
@@ -739,31 +738,31 @@ class EstacionamentoCliente(QMainWindow):
 
     @QtCore.pyqtSlot()
     def mudarJanelaHome(self):
-        self.janelaHome = HomeCliente()
+        self.janelaHome = telaHomeCliente()
         self.janelaHome.show()
         self.close()
     
     @QtCore.pyqtSlot()
     def mudarJanelaVagas(self):
-        self.janelaVagas = VagasCliente()
+        self.janelaVagas = telaVagasCliente()
         self.janelaVagas.show()
         self.close()
     
     @QtCore.pyqtSlot()
     def mudarJanelaMinhaReserva(self):
-        self.janelaMinhaReserva = MinhaReserva()
+        self.janelaMinhaReserva = telaMinhaReserva()
         self.janelaMinhaReserva.show()
         self.close()
 
     @QtCore.pyqtSlot()
     def alugarVaga(self):
-        #self.alugarVaga = AlugarVagasCliente()
+        #self.alugarVaga = telaAlugarVagasCliente()
         self.alugarVaga.show()
         self.close()
 
     @QtCore.pyqtSlot()
     def reservarVaga(self):
-        #self.reservarVaga = ReservarVagasCliente()
+        #self.reservarVaga = telaReservarVagasCliente()
         self.reservarVaga.show()
         self.close()
 
@@ -772,7 +771,7 @@ class EstacionamentoCliente(QMainWindow):
         self.close()
 
 
-class MinhaReserva(QMainWindow):
+class telaMinhaReserva(QMainWindow):
     def __init__(self):
         super().__init__()
         self.ui = Ui_ReservasCliente()
@@ -788,19 +787,19 @@ class MinhaReserva(QMainWindow):
 
     @QtCore.pyqtSlot()
     def mudarJanelaHome(self):
-        self.janelaHomeCliente = HomeCliente()
+        self.janelaHomeCliente = telaHomeCliente()
         self.janelaHomeCliente.show()
         self.close()
 
     @QtCore.pyqtSlot()
     def mudarJanelaVagasCliente(self):
-        self.janelaVagasCliente = VagasCliente()
+        self.janelaVagasCliente = telaVagasCliente()
         self.janelaVagasCliente.show()
         self.close()
     
     @QtCore.pyqtSlot()
     def mudarJanelaEstacionamento(self):
-        self.janelaEstacionamentoCliente = EstacionamentoCliente()
+        self.janelaEstacionamentoCliente = telaEstacionamentoCliente()
         self.janelaEstacionamentoCliente.show()
         self.close()
 
@@ -817,7 +816,7 @@ class MinhaReserva(QMainWindow):
         pass
 
 
-class AlugarVagasCliente(QMainWindow):
+class telaAlugarVagasCliente(QMainWindow):
     def __init__(self):
         super().__init__()
         #self.ui = Ui_AlugarVagaCliente()
@@ -832,19 +831,19 @@ class AlugarVagasCliente(QMainWindow):
 
     @QtCore.pyqtSlot()
     def mudarJanelaHomeCliente(self):
-        self.janelaHomeCliente = HomeCliente()
+        self.janelaHomeCliente = telaHomeCliente()
         self.janelaHomeCliente.show()
         self.close()
 
     @QtCore.pyqtSlot()
     def mudarJanelaVagas(self):
-        self.janelaVagas = VagasCliente()
+        self.janelaVagas = telaVagasCliente()
         self.janelaVagas.show()
         self.close()
 
     @QtCore.pyqtSlot()
     def mudarJanelaEstacionamento(self):
-        self.janelaEstacionamento = EstacionamentoCliente()
+        self.janelaEstacionamento = telaEstacionamentoCliente()
         self.janelaEstacionamento.show()
         self.close()
 
@@ -865,7 +864,7 @@ class AlugarVagasCliente(QMainWindow):
         return self.ui.intervalo.currentText()
 
 
-class ReservarVagasCliente(QMainWindow):
+class telaReservarVagasCliente(QMainWindow):
     def __init__(self):
         super().__init__()
         #self.ui = Ui_ReservarVagasCliente()
@@ -879,13 +878,13 @@ class ReservarVagasCliente(QMainWindow):
     
     @QtCore.pyqtSlot()
     def mudarJanelaHome(self):
-        self.janelaHome = HomeCliente()
+        self.janelaHome = telaHomeCliente()
         self.janelaHome.show()
         self.close()
 
     @QtCore.pyqtSlot()
     def mudarJanelaEstacionamento(self):
-        self.janelaEstacionamento = EstacionamentoCliente()
+        self.janelaEstacionamento = telaEstacionamentoCliente()
         self.janelaEstacionamento.show()
         self.close() 
        
@@ -908,6 +907,6 @@ class ReservarVagasCliente(QMainWindow):
 
 if __name__ == "__main__":
     app = QApplication(sys.argv)
-    janela = Login()
+    janela = telaLogin()
     janela.show()
     sys.exit(app.exec_())
