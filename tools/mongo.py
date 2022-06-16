@@ -1,6 +1,7 @@
+import pymongo
+
 # Função que faz a conexão
 def client():
-    import pymongo
     # Link de conexão com o banco de dados na nuvem
     stringConnection = "mongodb+srv://engenharia:dbR4zr7MfU8bdig7@cluster0.1e19e.mongodb.net/test"
     myClient = pymongo.MongoClient(stringConnection)
@@ -58,9 +59,15 @@ def vagasDB(indice):
     return vagas.find_one({ 'Vaga': indice })
 
 
-def updateVaga(row, status:str):
-    query = {"Vaga": row["Vaga"], "Status": row["Status"]}
-    newQuery = { "$set": { "Status": status }}
+def updateVaga(row):
+    query = { "Vaga": row["Vaga"] }
+    newQuery = { "$set": { "Nome": row["Nome"],
+                           "Placa": row["Placa"],
+                           "Vaga": row["Vaga"],
+                           "Status": row["Status"],
+                           "Data": row["Data"],
+                           "Tempo": row["Tempo"],
+                           "Aluguel": row["Aluguel"] }}
     db = client()
     vagas = db["vagas"]   
     vagas.update_one(query, newQuery) 
