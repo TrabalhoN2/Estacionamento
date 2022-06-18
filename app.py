@@ -297,7 +297,19 @@ class telaMudarStatusFuncionario(QMainWindow):
     def alteracao(self):
         vaga = str(self.ui.numeroVaga.currentText())
         status = str(self.getSituacao())
-        updateStatusVaga(vaga, status)
+        if status == "Vazia":
+            documento = {
+                "Nome": "",
+                "Placa": "",
+                "Vaga": vaga,
+                "Status": "Vazia",
+                "Data": "", 
+                "Tempo": "",
+                "Aluguel": ""
+            }
+            updateVaga(documento)
+        else:
+            updateStatusVaga(vaga, status)
 
     @QtCore.pyqtSlot()
     def getSituacao(self):
