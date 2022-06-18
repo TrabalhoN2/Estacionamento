@@ -65,6 +65,14 @@ def vagasDB(indice):
     return vagas.find_one({ 'Vaga': indice })
 
 
+def updateStatusVaga(vaga, status):
+    query = { "Vaga": vaga }
+    newQuery = { "$set": { "Status": status }}
+    db = client()
+    vagas = db["vagas"]   
+    vagas.update_one(query, newQuery) 
+    
+
 def updateVaga(row):
     query = { "Vaga": row["Vaga"] }
     newQuery = { "$set": { "Nome": row["Nome"],
