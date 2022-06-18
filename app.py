@@ -405,7 +405,7 @@ class telaReservarFuncionario(QMainWindow):
 
     @QtCore.pyqtSlot()
     def getIntervaloTempo(self):
-        return self.ui.intervaloReserva.currentData()
+        return self.ui.intervaloReserva.currentText()
 
     @QtCore.pyqtSlot()
     def confirmar(self):
@@ -1081,6 +1081,6 @@ class telaReservarVagasCliente(QMainWindow):
 
 if __name__ == "__main__":
     app = QApplication(sys.argv)
-    janela = telaHomeFuncionario()
+    janela = telaLogin()
     janela.show()
     sys.exit(app.exec_())
