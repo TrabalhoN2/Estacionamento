@@ -50,7 +50,13 @@ def inserirVaga(document):
 def listarVagasDB():
     db = client()
     vagas = db["vagas"]
-    return vagas.find().limit(20)
+    return vagas.find()
+
+
+def listarCadastrosClientes():
+    db = client()
+    registro = db["clientes"]
+    return registro.find()
 
 
 def vagasDB(indice):
