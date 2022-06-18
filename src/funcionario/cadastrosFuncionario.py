@@ -155,7 +155,7 @@ class Ui_CadastrosFuncionario(object):
         item = self.tableCadastros.horizontalHeaderItem(0)
         item.setText(_translate("CadastrosFuncionario", "Nome do cliente"))
         item = self.tableCadastros.horizontalHeaderItem(1)
-        item.setText(_translate("CadastrosFuncionario", "Data do cadastro"))
+        item.setText(_translate("CadastrosFuncionario", "CPF"))
         item = self.tableCadastros.horizontalHeaderItem(2)
         item.setText(_translate("CadastrosFuncionario", "Telefone"))
         item = self.tableCadastros.horizontalHeaderItem(3)

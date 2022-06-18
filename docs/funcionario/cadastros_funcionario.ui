@@ -250,7 +250,7 @@ font: 14pt &quot;Segoe UI&quot;;</string>
     </column>
     <column>
      <property name="text">
-      <string>Data do cadastro</string>
+      <string>CPF</string>
      </property>
      <property name="font">
       <font>
