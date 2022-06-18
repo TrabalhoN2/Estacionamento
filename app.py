@@ -1,7 +1,7 @@
 import sys
 
-from PyQt5.QtWidgets import QApplication, QMainWindow
-from tools.mongo import buscarCliente, buscarFuncionario, cadastroCliente, cadastroFuncionario, inserirVaga, listarVagasDB, vagasDB, updateVaga
+from PyQt5.QtWidgets import QApplication, QMainWindow, QTableWidgetItem
+from tools.mongo import buscarCliente, buscarFuncionario, cadastroCliente, cadastroFuncionario, inserirVaga, listarCadastrosClientes, listarVagasDB, vagasDB, updateVaga
 
 from src.funcionario.homeFuncionario import *
 from src.funcionario.cadastrosFuncionario import *
@@ -81,6 +81,23 @@ class telaCadastrosFuncionario(QMainWindow):
         self.ui = Ui_CadastrosFuncionario()
         self.ui.setupUi(self)
 
+        documento = listarCadastrosClientes()
+
+        tamanho = documento.collection.count_documents({})
+
+        self.ui.tableCadastros.setRowCount(tamanho)
+        self.ui.tableCadastros.setColumnCount(5)
+
+        i = 0
+        while i < tamanho:
+            self.ui.tableCadastros.setItem(i, 0, QTableWidgetItem(documento[i]["Nome"]))
+            self.ui.tableCadastros.setItem(i, 1, QTableWidgetItem(documento[i]["CPF"]))
+            self.ui.tableCadastros.setItem(i, 2, QTableWidgetItem(documento[i]["Telefone"]))
+            self.ui.tableCadastros.setItem(i, 3, QTableWidgetItem(documento[i]["Placa"]))
+            self.ui.tableCadastros.setItem(i, 4, QTableWidgetItem(documento[i]["Endereco"]))
+            
+            i += 1
+
         self.ui.btnHome.clicked.connect(self.mudarJanelaHomeFuncionario)
         self.ui.btnVagas.clicked.connect(self.mudarJanelaVagasFuncionario)
         self.ui.btnEstacionamento.clicked.connect(self.mudarJanelaEstacionamentoFuncionario)
@@ -123,7 +140,18 @@ class telaVagasFuncionario(QMainWindow):
         self.ui = Ui_VagasFuncionario()
         self.ui.setupUi(self)
 
-        # configurar lista de vagas
+        self.ui.tableVagas.setRowCount(20)
+        self.ui.tableVagas.setColumnCount(4)
+
+        documento = listarVagasDB()
+
+        i = 0
+        while i < 20:
+            self.ui.tableVagas.setItem(i, 0, QTableWidgetItem(documento[i]["Vaga"]))
+            self.ui.tableVagas.setItem(i, 1, QTableWidgetItem(documento[i]["Status"]))
+            self.ui.tableVagas.setItem(i, 2, QTableWidgetItem(documento[i]["Aluguel"]))
+            self.ui.tableVagas.setItem(i, 3, QTableWidgetItem(documento[i]["Tempo"]))
+            i += 1
 
         self.ui.btnHome.clicked.connect(self.mudarJanelaHomeFuncionario)
         self.ui.btnCadastros.clicked.connect(self.mudarJanelaCadastrosFuncionario)
@@ -635,7 +663,7 @@ class telaHomeCliente(QMainWindow):
 
         self.ui.btnVagas.clicked.connect(self.mudarJanelaVagas)
         self.ui.btnEstacionamento.clicked.connect(self.mudarJanelaEstacionamento)
-        self.ui.btnMinhaReserva.clicked.connect(self.mudarJanelaReserva)
+        self.ui.btnMinhaReserva.clicked.connect(self.mudarJanelaMinhaReserva)
         self.ui.btnSair.clicked.connect(self.sair)
 
     @QtCore.pyqtSlot()
@@ -651,9 +679,9 @@ class telaHomeCliente(QMainWindow):
         self.hide()
     
     @QtCore.pyqtSlot()
-    def mudarJanelaReserva(self):
-        self.janelaReserva = telaMinhaReserva()
-        self.janelaReserva.show()
+    def mudarJanelaMinhaReserva(self):
+        self.janelaMinhaReserva = telaMinhaReserva()
+        self.janelaMinhaReserva.show()
         self.hide()
 
     @QtCore.pyqtSlot()
@@ -666,17 +694,18 @@ class telaVagasCliente(QMainWindow):
         super().__init__()
         self.ui = Ui_VagasCliente()
         self.ui.setupUi(self)
-        #self.ui.tableVagas.setRowCount(20)
-        #self.ui.tableVagas.setColumnCount(4)
+        
+        self.ui.tableVagas.setRowCount(20)
+        self.ui.tableVagas.setColumnCount(4)
 
-        #self.row = listarVagasDB()
-        #i = 0
-        #while (i < 20):
-        #    self.ui.tableVagas.setItem(i, 0, QtWidgets.QTableWidgetItem(self.row[i]["Vaga"]))
-        #    self.ui.tableVagas.setItem(i, 1, QtWidgets.QTableWidgetItem(self.row[i]["Status"]))
-        #    self.ui.tableVagas.setItem(i, 2, QtWidgets.QTableWidgetItem(self.row[i]["Aluguel"]))
-        #    self.ui.tableVagas.setItem(i, 3, QtWidgets.QTableWidgetItem(self.row[i]["Tempo"]))
-        #    i += 1
+        documento = listarVagasDB()
+        i = 0
+        while (i < 20):
+            self.ui.tableVagas.setItem(i, 0, QtWidgets.QTableWidgetItem(documento[i]["Vaga"]))
+            self.ui.tableVagas.setItem(i, 1, QtWidgets.QTableWidgetItem(documento[i]["Status"]))
+            self.ui.tableVagas.setItem(i, 2, QtWidgets.QTableWidgetItem(documento[i]["Aluguel"]))
+            self.ui.tableVagas.setItem(i, 3, QtWidgets.QTableWidgetItem(documento[i]["Tempo"]))
+            i += 1
         
         self.ui.btnHome.clicked.connect(self.mudarJanelaHomeCliente)
         self.ui.btnEstacionamento.clicked.connect(self.mudarJanelaEstacionamentoCliente)
@@ -783,10 +812,10 @@ class telaMinhaReserva(QMainWindow):
         self.ui.btnSair.clicked.connect(self.sair)
 
         self.ui.btnAtualizarReserva.clicked.connect(self.atualizarReserva)
-        self.ui.btnCancelarReserva.clicked.connect(self.cancelarReserva)
+        self.ui.btnCancelar.clicked.connect(self.cancelarReserva)
 
     @QtCore.pyqtSlot()
-    def mudarJanelaHome(self):
+    def mudarJanelaHomeCliente(self):
         self.janelaHomeCliente = telaHomeCliente()
         self.janelaHomeCliente.show()
         self.close()
@@ -798,7 +827,7 @@ class telaMinhaReserva(QMainWindow):
         self.close()
     
     @QtCore.pyqtSlot()
-    def mudarJanelaEstacionamento(self):
+    def mudarJanelaEstacionamentoCliente(self):
         self.janelaEstacionamentoCliente = telaEstacionamentoCliente()
         self.janelaEstacionamentoCliente.show()
         self.close()
@@ -873,6 +902,7 @@ class telaAlugarVagasCliente(QMainWindow):
             'Tempo': str(self.getIntervaloTempo()),
             'Aluguel': str(self.getValor()),
         }
+        updateVaga(documento)
 
 
 class telaReservarVagasCliente(QMainWindow):
@@ -927,10 +957,11 @@ class telaReservarVagasCliente(QMainWindow):
             'Data': str(self.getData()),
             'Tempo': str(self.getIntervaloTempo()),
         }
+        updateVaga(documento)
 
 
 if __name__ == "__main__":
     app = QApplication(sys.argv)
-    janela = telaLogin()
+    janela = telaHomeFuncionario()
     janela.show()
     sys.exit(app.exec_())
