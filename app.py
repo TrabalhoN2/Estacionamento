@@ -1,7 +1,7 @@
 import sys
 
 from PyQt5.QtWidgets import QApplication, QMainWindow, QTableWidgetItem
-from tools.mongo import buscarCliente, buscarFuncionario, cadastroCliente, cadastroFuncionario, inserirVaga, listarCadastrosClientes, listarVagasDB, vagasDB, updateVaga
+from tools.mongo import buscarCliente, buscarFuncionario, cadastroCliente, cadastroFuncionario, inserirVaga, listarCadastrosClientes, listarVagasDB, updateStatusVaga, vagasDB, updateVaga
 
 from src.funcionario.homeFuncionario import *
 from src.funcionario.cadastrosFuncionario import *
@@ -267,27 +267,50 @@ class telaMudarStatusFuncionario(QMainWindow):
         super().__init__()
         self.ui = Ui_MudarStatusFuncionario()
         self.ui.setupUi(self)
-
-        self.ui.vagaLivre.setChecked(True) # Pegar informação do banco
+        
+        numeroVaga = self.ui.numeroVaga.currentText()
+        row = vagasDB(str(numeroVaga))
+        if row["Status"] == "Vazia":
+            self.ui.vagaLivre.setChecked(True)
+        elif row["Status"] == "Alugada":
+            self.ui.vagaOcupada.setChecked(True)
+        else:
+            self.ui.vagaReservada.setChecked(True)
+        
+        self.ui.btnVerificarVaga.clicked.connect(self.verificar)
 
         self.ui.btnConfirmar.clicked.connect(self.confirmarAlteracao)
         self.ui.btnCancelar.clicked.connect(self.cancelarAlteracao)
     
     @QtCore.pyqtSlot()
-    def getNumeroVaga(self):
-        return self.ui.numeroVaga.currentText()
+    def verificar(self):
+        numeroVaga = self.ui.numeroVaga.currentText()
+        row = vagasDB(str(numeroVaga))
+        if row["Status"] == "Vazia":
+            self.ui.vagaLivre.setChecked(True)
+        elif row["Status"] == "Alugada":
+            self.ui.vagaOcupada.setChecked(True)
+        else:
+            self.ui.vagaReservada.setChecked(True)
+
+    @QtCore.pyqtSlot()
+    def alteracao(self):
+        vaga = str(self.ui.numeroVaga.currentText())
+        status = str(self.getSituacao())
+        updateStatusVaga(vaga, status)
 
     @QtCore.pyqtSlot()
     def getSituacao(self):
         if self.ui.vagaLivre.isChecked():
-            return 'Livre'
+            return 'Vazia'
         elif self.ui.vagaOcupada.isChecked():
-            return 'Ocupada'
+            return 'Alugada'
         else:
             return 'Reservada'
 
     @QtCore.pyqtSlot()
     def confirmarAlteracao(self):
+        self.alteracao()
         self.alteracao = telaConfirmarAlteracao()
         self.alteracao.show()
         self.close()
@@ -699,14 +722,107 @@ class telaVagasCliente(QMainWindow):
         self.ui.tableVagas.setColumnCount(4)
 
         documento = listarVagasDB()
-        i = 0
-        while (i < 20):
-            self.ui.tableVagas.setItem(i, 0, QtWidgets.QTableWidgetItem(documento[i]["Vaga"]))
-            self.ui.tableVagas.setItem(i, 1, QtWidgets.QTableWidgetItem(documento[i]["Status"]))
-            self.ui.tableVagas.setItem(i, 2, QtWidgets.QTableWidgetItem(documento[i]["Aluguel"]))
-            self.ui.tableVagas.setItem(i, 3, QtWidgets.QTableWidgetItem(documento[i]["Tempo"]))
-            i += 1
         
+        self.ui.tableVagas.setItem(0, 0, QtWidgets.QTableWidgetItem(documento[0]["Vaga"]))
+        self.ui.tableVagas.setItem(0, 1, QtWidgets.QTableWidgetItem(documento[0]["Status"]))
+        self.ui.tableVagas.setItem(0, 2, QtWidgets.QTableWidgetItem(documento[0]["Aluguel"]))
+        self.ui.tableVagas.setItem(0, 3, QtWidgets.QTableWidgetItem(documento[0]["Tempo"]))
+        
+        self.ui.tableVagas.setItem(1, 0, QtWidgets.QTableWidgetItem(documento[1]["Vaga"]))
+        self.ui.tableVagas.setItem(1, 1, QtWidgets.QTableWidgetItem(documento[1]["Status"]))
+        self.ui.tableVagas.setItem(1, 2, QtWidgets.QTableWidgetItem(documento[1]["Aluguel"]))
+        self.ui.tableVagas.setItem(1, 3, QtWidgets.QTableWidgetItem(documento[1]["Tempo"]))
+                
+        self.ui.tableVagas.setItem(2, 0, QtWidgets.QTableWidgetItem(documento[2]["Vaga"]))
+        self.ui.tableVagas.setItem(2, 1, QtWidgets.QTableWidgetItem(documento[2]["Status"]))
+        self.ui.tableVagas.setItem(2, 2, QtWidgets.QTableWidgetItem(documento[2]["Aluguel"]))
+        self.ui.tableVagas.setItem(2, 3, QtWidgets.QTableWidgetItem(documento[2]["Tempo"]))
+                
+        self.ui.tableVagas.setItem(3, 0, QtWidgets.QTableWidgetItem(documento[3]["Vaga"]))
+        self.ui.tableVagas.setItem(3, 1, QtWidgets.QTableWidgetItem(documento[3]["Status"]))
+        self.ui.tableVagas.setItem(3, 2, QtWidgets.QTableWidgetItem(documento[3]["Aluguel"]))
+        self.ui.tableVagas.setItem(3, 3, QtWidgets.QTableWidgetItem(documento[3]["Tempo"]))
+                
+        self.ui.tableVagas.setItem(4, 0, QtWidgets.QTableWidgetItem(documento[4]["Vaga"]))
+        self.ui.tableVagas.setItem(4, 1, QtWidgets.QTableWidgetItem(documento[4]["Status"]))
+        self.ui.tableVagas.setItem(4, 2, QtWidgets.QTableWidgetItem(documento[4]["Aluguel"]))
+        self.ui.tableVagas.setItem(4, 3, QtWidgets.QTableWidgetItem(documento[4]["Tempo"]))
+                
+        self.ui.tableVagas.setItem(5, 0, QtWidgets.QTableWidgetItem(documento[5]["Vaga"]))
+        self.ui.tableVagas.setItem(5, 1, QtWidgets.QTableWidgetItem(documento[5]["Status"]))
+        self.ui.tableVagas.setItem(5, 2, QtWidgets.QTableWidgetItem(documento[5]["Aluguel"]))
+        self.ui.tableVagas.setItem(5, 3, QtWidgets.QTableWidgetItem(documento[5]["Tempo"]))
+                
+        self.ui.tableVagas.setItem(6, 0, QtWidgets.QTableWidgetItem(documento[6]["Vaga"]))
+        self.ui.tableVagas.setItem(6, 1, QtWidgets.QTableWidgetItem(documento[6]["Status"]))
+        self.ui.tableVagas.setItem(6, 2, QtWidgets.QTableWidgetItem(documento[6]["Aluguel"]))
+        self.ui.tableVagas.setItem(6, 3, QtWidgets.QTableWidgetItem(documento[6]["Tempo"]))
+                
+        self.ui.tableVagas.setItem(7, 0, QtWidgets.QTableWidgetItem(documento[7]["Vaga"]))
+        self.ui.tableVagas.setItem(7, 1, QtWidgets.QTableWidgetItem(documento[7]["Status"]))
+        self.ui.tableVagas.setItem(7, 2, QtWidgets.QTableWidgetItem(documento[7]["Aluguel"]))
+        self.ui.tableVagas.setItem(7, 3, QtWidgets.QTableWidgetItem(documento[7]["Tempo"]))
+                
+        self.ui.tableVagas.setItem(8, 0, QtWidgets.QTableWidgetItem(documento[8]["Vaga"]))
+        self.ui.tableVagas.setItem(8, 1, QtWidgets.QTableWidgetItem(documento[8]["Status"]))
+        self.ui.tableVagas.setItem(8, 2, QtWidgets.QTableWidgetItem(documento[8]["Aluguel"]))
+        self.ui.tableVagas.setItem(8, 3, QtWidgets.QTableWidgetItem(documento[8]["Tempo"]))
+                
+        self.ui.tableVagas.setItem(9, 0, QtWidgets.QTableWidgetItem(documento[9]["Vaga"]))
+        self.ui.tableVagas.setItem(9, 1, QtWidgets.QTableWidgetItem(documento[9]["Status"]))
+        self.ui.tableVagas.setItem(9, 2, QtWidgets.QTableWidgetItem(documento[9]["Aluguel"]))
+        self.ui.tableVagas.setItem(9, 3, QtWidgets.QTableWidgetItem(documento[9]["Tempo"]))
+                
+        self.ui.tableVagas.setItem(10, 0, QtWidgets.QTableWidgetItem(documento[10]["Vaga"]))
+        self.ui.tableVagas.setItem(10, 1, QtWidgets.QTableWidgetItem(documento[10]["Status"]))
+        self.ui.tableVagas.setItem(10, 2, QtWidgets.QTableWidgetItem(documento[10]["Aluguel"]))
+        self.ui.tableVagas.setItem(10, 3, QtWidgets.QTableWidgetItem(documento[10]["Tempo"]))
+                
+        self.ui.tableVagas.setItem(11, 0, QtWidgets.QTableWidgetItem(documento[11]["Vaga"]))
+        self.ui.tableVagas.setItem(11, 1, QtWidgets.QTableWidgetItem(documento[11]["Status"]))
+        self.ui.tableVagas.setItem(11, 2, QtWidgets.QTableWidgetItem(documento[11]["Aluguel"]))
+        self.ui.tableVagas.setItem(11, 3, QtWidgets.QTableWidgetItem(documento[11]["Tempo"]))
+                
+        self.ui.tableVagas.setItem(12, 0, QtWidgets.QTableWidgetItem(documento[12]["Vaga"]))
+        self.ui.tableVagas.setItem(12, 1, QtWidgets.QTableWidgetItem(documento[12]["Status"]))
+        self.ui.tableVagas.setItem(12, 2, QtWidgets.QTableWidgetItem(documento[12]["Aluguel"]))
+        self.ui.tableVagas.setItem(12, 3, QtWidgets.QTableWidgetItem(documento[12]["Tempo"]))
+                
+        self.ui.tableVagas.setItem(13, 0, QtWidgets.QTableWidgetItem(documento[13]["Vaga"]))
+        self.ui.tableVagas.setItem(13, 1, QtWidgets.QTableWidgetItem(documento[13]["Status"]))
+        self.ui.tableVagas.setItem(13, 2, QtWidgets.QTableWidgetItem(documento[13]["Aluguel"]))
+        self.ui.tableVagas.setItem(13, 3, QtWidgets.QTableWidgetItem(documento[13]["Tempo"]))
+                
+        self.ui.tableVagas.setItem(14, 0, QtWidgets.QTableWidgetItem(documento[14]["Vaga"]))
+        self.ui.tableVagas.setItem(14, 1, QtWidgets.QTableWidgetItem(documento[14]["Status"]))
+        self.ui.tableVagas.setItem(14, 2, QtWidgets.QTableWidgetItem(documento[14]["Aluguel"]))
+        self.ui.tableVagas.setItem(14, 3, QtWidgets.QTableWidgetItem(documento[14]["Tempo"]))
+                
+        self.ui.tableVagas.setItem(15, 0, QtWidgets.QTableWidgetItem(documento[15]["Vaga"]))
+        self.ui.tableVagas.setItem(15, 1, QtWidgets.QTableWidgetItem(documento[15]["Status"]))
+        self.ui.tableVagas.setItem(15, 2, QtWidgets.QTableWidgetItem(documento[15]["Aluguel"]))
+        self.ui.tableVagas.setItem(15, 3, QtWidgets.QTableWidgetItem(documento[15]["Tempo"]))
+                
+        self.ui.tableVagas.setItem(16, 0, QtWidgets.QTableWidgetItem(documento[16]["Vaga"]))
+        self.ui.tableVagas.setItem(16, 1, QtWidgets.QTableWidgetItem(documento[16]["Status"]))
+        self.ui.tableVagas.setItem(16, 2, QtWidgets.QTableWidgetItem(documento[16]["Aluguel"]))
+        self.ui.tableVagas.setItem(16, 3, QtWidgets.QTableWidgetItem(documento[16]["Tempo"]))
+                
+        self.ui.tableVagas.setItem(17, 0, QtWidgets.QTableWidgetItem(documento[17]["Vaga"]))
+        self.ui.tableVagas.setItem(17, 1, QtWidgets.QTableWidgetItem(documento[17]["Status"]))
+        self.ui.tableVagas.setItem(17, 2, QtWidgets.QTableWidgetItem(documento[17]["Aluguel"]))
+        self.ui.tableVagas.setItem(17, 3, QtWidgets.QTableWidgetItem(documento[17]["Tempo"]))
+                
+        self.ui.tableVagas.setItem(18, 0, QtWidgets.QTableWidgetItem(documento[18]["Vaga"]))
+        self.ui.tableVagas.setItem(18, 1, QtWidgets.QTableWidgetItem(documento[18]["Status"]))
+        self.ui.tableVagas.setItem(18, 2, QtWidgets.QTableWidgetItem(documento[18]["Aluguel"]))
+        self.ui.tableVagas.setItem(18, 3, QtWidgets.QTableWidgetItem(documento[18]["Tempo"]))
+                
+        self.ui.tableVagas.setItem(19, 0, QtWidgets.QTableWidgetItem(documento[19]["Vaga"]))
+        self.ui.tableVagas.setItem(19, 1, QtWidgets.QTableWidgetItem(documento[19]["Status"]))
+        self.ui.tableVagas.setItem(19, 2, QtWidgets.QTableWidgetItem(documento[19]["Aluguel"]))
+        self.ui.tableVagas.setItem(19, 3, QtWidgets.QTableWidgetItem(documento[19]["Tempo"]))
+
         self.ui.btnHome.clicked.connect(self.mudarJanelaHomeCliente)
         self.ui.btnEstacionamento.clicked.connect(self.mudarJanelaEstacionamentoCliente)
         self.ui.btnReservas.clicked.connect(self.mudarJanelaMinhaReserva)
@@ -805,6 +921,9 @@ class telaMinhaReserva(QMainWindow):
         super().__init__()
         self.ui = Ui_ReservasCliente()
         self.ui.setupUi(self)
+
+        #self.ui.tableReservaCliente.setRowCount(1)
+        #self.ui.tableReservaCliente.setColumnCount(4)
 
         self.ui.btnHome.clicked.connect(self.mudarJanelaHomeCliente)
         self.ui.btnVagas.clicked.connect(self.mudarJanelaVagasCliente)
