@@ -11,7 +11,7 @@ def client():
 # Função de inserção de um cliente
 def cadastroCliente(document):
     db = client()
-    cliente = db["clientes"]         # Definindo o documento
+    cliente = db["loginCliente"]         # Definindo o documento
     cliente.insert_one(document)    # Inserindo um documento
 
 # Função de inserção de um funcioanrio
