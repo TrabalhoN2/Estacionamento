@@ -120,7 +120,7 @@ class Ui_ReservasCliente(object):
         self.tableReservaCliente.horizontalHeader().setCascadingSectionResizes(False)
         self.tableReservaCliente.horizontalHeader().setDefaultSectionSize(240)
         self.btnAtualizarReserva = QtWidgets.QPushButton(self.centralwidget)
-        self.btnAtualizarReserva.setGeometry(QtCore.QRect(860, 550, 121, 35))
+        self.btnAtualizarReserva.setGeometry(QtCore.QRect(730, 550, 121, 35))
         self.btnAtualizarReserva.setMinimumSize(QtCore.QSize(100, 35))
         self.btnAtualizarReserva.setMaximumSize(QtCore.QSize(150, 50))
         font = QtGui.QFont()
@@ -132,20 +132,19 @@ class Ui_ReservasCliente(object):
 "background-color: rgb(53, 119, 218);\n"
 "color: rgb(255, 255, 255);")
         self.btnAtualizarReserva.setObjectName("btnAtualizarReserva")
-        self.btnCancelar = QtWidgets.QPushButton(self.centralwidget)
-        self.btnCancelar.setEnabled(False)
-        self.btnCancelar.setGeometry(QtCore.QRect(730, 550, 121, 35))
-        self.btnCancelar.setMinimumSize(QtCore.QSize(100, 35))
-        self.btnCancelar.setMaximumSize(QtCore.QSize(200, 35))
+        self.btnCancelarReserva = QtWidgets.QPushButton(self.centralwidget)
+        self.btnCancelarReserva.setGeometry(QtCore.QRect(860, 550, 121, 35))
+        self.btnCancelarReserva.setMinimumSize(QtCore.QSize(100, 35))
+        self.btnCancelarReserva.setMaximumSize(QtCore.QSize(150, 50))
         font = QtGui.QFont()
         font.setPointSize(11)
-        self.btnCancelar.setFont(font)
-        self.btnCancelar.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
-        self.btnCancelar.setStyleSheet("background: #FF0505;\n"
-"color: rgb(255, 255, 255);\n"
-"border: none;\n"
-"border-radius:10px;")
-        self.btnCancelar.setObjectName("btnCancelar")
+        self.btnCancelarReserva.setFont(font)
+        self.btnCancelarReserva.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
+        self.btnCancelarReserva.setStyleSheet("border: none;\n"
+"border-radius:10px;\n"
+"background-color: rgb(224, 27, 36);\n"
+"color: rgb(255, 255, 255);")
+        self.btnCancelarReserva.setObjectName("btnCancelarReserva")
         ReservasCliente.setCentralWidget(self.centralwidget)
         self.menubar = QtWidgets.QMenuBar(ReservasCliente)
         self.menubar.setGeometry(QtCore.QRect(0, 0, 1000, 22))
@@ -174,4 +173,4 @@ class Ui_ReservasCliente(object):
         item = self.tableReservaCliente.horizontalHeaderItem(3)
         item.setText(_translate("ReservasCliente", "Aluguel"))
         self.btnAtualizarReserva.setText(_translate("ReservasCliente", "Atualizar"))
-        self.btnCancelar.setText(_translate("ReservasCliente", "Cancelar reserva"))
+        self.btnCancelarReserva.setText(_translate("ReservasCliente", "Cancelar Reserva"))
