@@ -21,6 +21,7 @@ from src.cliente.reservarCliente import *
 
 from src.login import *
 from src.cadastrarFuncionario import *
+from src.cadastrarCliente import *
 from src.confirmarReserva import *
 from src.confirmacaoPagamento import *
 from src.confirmarPagamento import *
@@ -519,9 +520,14 @@ class telaLogin(QMainWindow):
 
     @QtCore.pyqtSlot()
     def mudarJanelaCadastrar(self):
-        self.janelaCadastro = telaCadastroFuncionario()  # Cria uma referência para a janela de cadastro
-        self.janelaCadastro.show()  # Chama a janela de cadastro
-        self.hide()  # Esconde a janela de login
+        if (self.ui.radioButtonCliente.isCheckable()):
+            self.janelaCadastro = telaCadastroCliente()  # Cria uma referência para a janela de cadastro
+            self.janelaCadastro.show()  # Chama a janela de cadastro
+            self.hide()  # Esconde a janela de login
+        elif (self.ui.radioButtonFuncionario.isCheckable()):
+            self.janelaCadastro = telaCadastroFuncionario()  # Cria uma referência para a janela de cadastro
+            self.janelaCadastro.show()  # Chama a janela de cadastro
+            self.hide()  # Esconde a janela de login
 
     @QtCore.pyqtSlot()
     def fecharFrame(self):
@@ -623,6 +629,44 @@ class telaCadastroFuncionario(QMainWindow):
             "Password": str(self.getSenha()),
         }
         cadastroFuncionario(documento)
+
+
+class telaCadastroCliente(QMainWindow):
+    def __init__(self):
+        super().__init__()
+        self.ui = Ui_CadastrarCliente()
+        self.ui.setupUi(self)
+
+        self.ui.btnCadastrar.clicked.connect(self.cadastrarCliente)    # Quando clicar no botão
+        self.ui.btnCadastrar.clicked.connect(self.mudarJanelaLogin)  # Quando clicar no botão
+
+    @QtCore.pyqtSlot()
+    def mudarJanelaLogin(self):          # Função que esconde a janela de cadastro após o cadastro e volta para a de login
+        self.telaLogin = telaLogin()
+        self.telaLogin.show()
+        self.close()
+
+    @QtCore.pyqtSlot()
+    def closeEvent(self, evento):   # Função que fecha a janela de cadastro e volta para a de login
+        self.telaLogin = telaLogin()
+        self.telaLogin.show()
+        evento.accept()
+
+    @QtCore.pyqtSlot()
+    def getNome(self):       # Fuções para pegar o texto digitado nos campos
+        return self.ui.nome_usuario.text()
+
+    @QtCore.pyqtSlot()
+    def getSenha(self):
+        return self.ui.senha.text()
+
+    @QtCore.pyqtSlot()       # Função que envia um documento para o MongoDB(base de dados)
+    def cadastrarCliente(self):
+        documento = {
+            "user": str(self.getNome()),
+            "password": str(self.getSenha()),
+        }
+        cadastroCliente(documento)
 
 
 class telaConfirmacaoPagamento(QMainWindow):
