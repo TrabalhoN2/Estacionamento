@@ -65,6 +65,12 @@ def vagasDB(indice):
     return vagas.find_one({ 'Vaga': indice })
 
 
+def vagasCliente(info):
+    db = client()
+    vagas = db["loginCliente"]
+    return vagas.find_one({ 'user': info[0], 'password': info[1] })
+
+
 def updateStatusVaga(vaga, status):
     query = { "Vaga": vaga }
     newQuery = { "$set": { "Status": status }}
@@ -84,4 +90,18 @@ def updateVaga(row):
                            "Aluguel": row["Aluguel"] }}
     db = client()
     vagas = db["vagas"]   
+    vagas.update_one(query, newQuery) 
+
+
+def updateVagaCliente(row):
+    query = { "user": row["user"], "password": row["password"] }
+    newQuery = { "$set": { "Nome": row["Nome"],
+                           "Placa": row["Placa"],
+                           "Vaga": row["Vaga"],
+                           "Status": row["Status"],
+                           "Data": row["Data"],
+                           "Tempo": row["Tempo"],
+                           "Aluguel": row["Aluguel"] }}
+    db = client()
+    vagas = db["loginCliente"]   
     vagas.update_one(query, newQuery) 
