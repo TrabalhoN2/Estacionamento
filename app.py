@@ -1,7 +1,7 @@
 import sys
 
 from PyQt5.QtWidgets import QApplication, QMainWindow, QTableWidgetItem
-from tools.mongo import buscarCliente, buscarFuncionario, cadastroCliente, cadastroFuncionario, inserirVaga, listarCadastrosClientes, listarVagasDB, updateStatusVaga, vagasDB, updateVaga
+from tools.mongo import buscarCliente, buscarFuncionario, cadastroCliente, cadastroFuncionario, listarCadastrosClientes, listarVagasDB, updateStatusVaga, updateVagaCliente, vagasDB, vagasCliente, updateVaga
 
 from src.funcionario.homeFuncionario import *
 from src.funcionario.cadastrosFuncionario import *
@@ -524,22 +524,23 @@ class telaLogin(QMainWindow):
         self.hide()  # Esconde a janela de login
 
     @QtCore.pyqtSlot()
+    def fecharFrame(self):
+        self.ui.frameErro.hide()
+
+    @QtCore.pyqtSlot()
     def entrarCliente(self):
         if self.checarCampos():
             usuario = str(self.getUsuario())
             senha = str(self.getSenha())
             if (buscarCliente(usuario, senha)):
-                self.janelaHomeCliente = telaHomeCliente()
+                self.janelaHomeCliente = telaHomeCliente([usuario, senha])
                 self.janelaHomeCliente.show()
                 self.close()
             else:
                 self.mostrarMensagem("Usuário não cadastrado.")
+                self.ui.btnFecharFrameErro.clicked.connect(self.fecharFrame)
         else:
             self.ui.btnFecharFrameErro.clicked.connect(self.fecharFrame)
-
-    @QtCore.pyqtSlot()
-    def fecharFrame(self):
-        self.ui.frameErro.hide()
 
     @QtCore.pyqtSlot()
     def entrarFuncionario(self):
@@ -552,6 +553,7 @@ class telaLogin(QMainWindow):
                 self.close()
             else:
                 self.mostrarMensagem("Usuário não cadastrado.")
+                self.ui.btnFecharFrameErro.clicked.connect(self.fecharFrame)
         else:
             self.ui.btnFecharFrameErro.clicked.connect(self.fecharFrame)
 
@@ -691,10 +693,13 @@ class telaConfirmarReserva(QMainWindow):
 
 
 class telaHomeCliente(QMainWindow):
-    def __init__(self):
+    def __init__(self, informacao:list):
         super().__init__()
         self.ui = Ui_HomeCliente()
         self.ui.setupUi(self)
+
+        self.user = informacao[0]
+        self.password = informacao[1]
 
         self.ui.btnVagas.clicked.connect(self.mudarJanelaVagas)
         self.ui.btnEstacionamento.clicked.connect(self.mudarJanelaEstacionamento)
@@ -703,19 +708,19 @@ class telaHomeCliente(QMainWindow):
 
     @QtCore.pyqtSlot()
     def mudarJanelaVagas(self):
-        self.janelaVagas = telaVagasCliente()
+        self.janelaVagas = telaVagasCliente([self.user, self.password])
         self.janelaVagas.show()
         self.hide()
     
     @QtCore.pyqtSlot()
     def mudarJanelaEstacionamento(self):
-        self.janelaEstacionamento = telaEstacionamentoCliente()
+        self.janelaEstacionamento = telaEstacionamentoCliente([self.user, self.password])
         self.janelaEstacionamento.show()
         self.hide()
     
     @QtCore.pyqtSlot()
     def mudarJanelaMinhaReserva(self):
-        self.janelaMinhaReserva = telaMinhaReserva()
+        self.janelaMinhaReserva = telaMinhaReserva([self.user, self.password])
         self.janelaMinhaReserva.show()
         self.hide()
 
@@ -725,10 +730,13 @@ class telaHomeCliente(QMainWindow):
 
 
 class telaVagasCliente(QMainWindow):
-    def __init__(self):
+    def __init__(self, informacao:list):
         super().__init__()
         self.ui = Ui_VagasCliente()
         self.ui.setupUi(self)
+
+        self.user = informacao[0] 
+        self.password = [1]
         
         self.ui.tableVagas.setRowCount(20)
         self.ui.tableVagas.setColumnCount(4)
@@ -846,31 +854,31 @@ class telaVagasCliente(QMainWindow):
     
     @QtCore.pyqtSlot()
     def mudarJanelaHomeCliente(self):
-        self.janelaHomeCliente = telaHomeCliente()
+        self.janelaHomeCliente = telaHomeCliente([self.user, self.password])
         self.janelaHomeCliente.show()
         self.close()
     
     @QtCore.pyqtSlot()
     def mudarJanelaEstacionamentoCliente(self):
-        self.janelaEstacionamento = telaEstacionamentoCliente()
+        self.janelaEstacionamento = telaEstacionamentoCliente([self.user, self.password])
         self.janelaEstacionamento.show()
         self.close()
 
     @QtCore.pyqtSlot()
     def mudarJanelaMinhaReserva(self):
-        self.janelaMinhaReserva = telaMinhaReserva()
+        self.janelaMinhaReserva = telaMinhaReserva([self.user, self.password])
         self.janelaMinhaReserva.show()
         self.close()
 
     @QtCore.pyqtSlot()
     def mudarJanelaAlugarVaga(self):
-        self.janelaAlugar = telaAlugarVagasCliente()
+        self.janelaAlugar = telaAlugarVagasCliente([self.user, self.password])
         self.janelaAlugar.show()
         self.hide()
 
     @QtCore.pyqtSlot()
     def mudarJanelaReservarVaga(self):
-        self.janelaReserva = telaReservarVagasCliente()
+        self.janelaReserva = telaReservarVagasCliente([self.user, self.password])
         self.janelaReserva.show()
         self.hide()
 
@@ -880,10 +888,13 @@ class telaVagasCliente(QMainWindow):
 
 
 class telaEstacionamentoCliente(QMainWindow):
-    def __init__(self):
+    def __init__(self, informacao:list):
         super().__init__()
         self.ui = Ui_EstacionamentoCliente()
         self.ui.setupUi(self)
+
+        self.user = informacao[0]
+        self.password = informacao[1]
 
         self.ui.btnHome.clicked.connect(self.mudarJanelaHome)
         self.ui.btnVagas.clicked.connect(self.mudarJanelaVagas)
@@ -895,31 +906,31 @@ class telaEstacionamentoCliente(QMainWindow):
 
     @QtCore.pyqtSlot()
     def mudarJanelaHome(self):
-        self.janelaHome = telaHomeCliente()
+        self.janelaHome = telaHomeCliente([self.user, self.password])
         self.janelaHome.show()
         self.close()
     
     @QtCore.pyqtSlot()
     def mudarJanelaVagas(self):
-        self.janelaVagas = telaVagasCliente()
+        self.janelaVagas = telaVagasCliente([self.user, self.password])
         self.janelaVagas.show()
         self.close()
     
     @QtCore.pyqtSlot()
     def mudarJanelaMinhaReserva(self):
-        self.janelaMinhaReserva = telaMinhaReserva()
+        self.janelaMinhaReserva = telaMinhaReserva([self.user, self.password])
         self.janelaMinhaReserva.show()
         self.close()
 
     @QtCore.pyqtSlot()
     def alugarVaga(self):
-        #self.alugarVaga = telaAlugarVagasCliente()
+        self.alugarVaga = telaAlugarVagasCliente([self.user, self.password])
         self.alugarVaga.show()
         self.close()
 
     @QtCore.pyqtSlot()
     def reservarVaga(self):
-        #self.reservarVaga = telaReservarVagasCliente()
+        self.reservarVaga = telaReservarVagasCliente([self.user, self.password])
         self.reservarVaga.show()
         self.close()
 
@@ -929,13 +940,25 @@ class telaEstacionamentoCliente(QMainWindow):
 
 
 class telaMinhaReserva(QMainWindow):
-    def __init__(self):
+    def __init__(self, informacao:list):
         super().__init__()
         self.ui = Ui_ReservasCliente()
         self.ui.setupUi(self)
 
-        #self.ui.tableReservaCliente.setRowCount(1)
-        #self.ui.tableReservaCliente.setColumnCount(4)
+        self.user = informacao[0] 
+        self.password = informacao[1]
+
+        self.ui.tableReservaCliente.setRowCount(1)
+        self.ui.tableReservaCliente.setColumnCount(4)
+
+        row = vagasCliente([self.user, self.password])
+
+        self.vaga = row["Vaga"]
+        
+        self.ui.tableReservaCliente.setItem(0, 0, QTableWidgetItem(row["Vaga"]))
+        self.ui.tableReservaCliente.setItem(0, 1, QTableWidgetItem(row["Data"]))
+        self.ui.tableReservaCliente.setItem(0, 2, QTableWidgetItem(row["Tempo"]))
+        self.ui.tableReservaCliente.setItem(0, 3, QTableWidgetItem(row["Aluguel"]))
 
         self.ui.btnHome.clicked.connect(self.mudarJanelaHomeCliente)
         self.ui.btnVagas.clicked.connect(self.mudarJanelaVagasCliente)
@@ -943,23 +966,23 @@ class telaMinhaReserva(QMainWindow):
         self.ui.btnSair.clicked.connect(self.sair)
 
         self.ui.btnAtualizarReserva.clicked.connect(self.atualizarReserva)
-        self.ui.btnCancelar.clicked.connect(self.cancelarReserva)
+        self.ui.btnCancelarReserva.clicked.connect(self.cancelarReserva)
 
     @QtCore.pyqtSlot()
     def mudarJanelaHomeCliente(self):
-        self.janelaHomeCliente = telaHomeCliente()
+        self.janelaHomeCliente = telaHomeCliente([self.user, self.password])
         self.janelaHomeCliente.show()
         self.close()
 
     @QtCore.pyqtSlot()
     def mudarJanelaVagasCliente(self):
-        self.janelaVagasCliente = telaVagasCliente()
+        self.janelaVagasCliente = telaVagasCliente([self.user, self.password])
         self.janelaVagasCliente.show()
         self.close()
     
     @QtCore.pyqtSlot()
     def mudarJanelaEstacionamentoCliente(self):
-        self.janelaEstacionamentoCliente = telaEstacionamentoCliente()
+        self.janelaEstacionamentoCliente = telaEstacionamentoCliente([self.user, self.password])
         self.janelaEstacionamentoCliente.show()
         self.close()
 
@@ -969,18 +992,47 @@ class telaMinhaReserva(QMainWindow):
 
     @QtCore.pyqtSlot()
     def atualizarReserva(self):
-        pass
+        self.janelaReservarCliente = telaReservarVagasCliente([self.user, self.password])
+        self.janelaReservarCliente.show()
+        self.close()
 
     @QtCore.pyqtSlot()
     def cancelarReserva(self):
-        pass
+        documentoVagas = {
+            'Nome': str(''),
+            'Placa': str(''),
+            'Vaga': str(self.vaga),
+            'Status': 'Vazia',
+            'Data': str(''),
+            'Tempo': str(''),
+            'Aluguel': str(''),
+        }
+        documentoVagaCliente = {
+            'user': str(self.user),
+            'password': str(self.password),
+            'Nome': str(''),
+            'Placa': str(''),
+            'Vaga': str(''),
+            'Status': 'Vazia',
+            'Data': str(''),
+            'Tempo': str(''),
+            'Aluguel': str(''),
+        }
+        updateVagaCliente(documentoVagaCliente)
+        updateVaga(documentoVagas)
+        self.janelaHome = telaHomeCliente([self.user, self.password])
+        self.janelaHome.show()
+        self.close()
 
 
 class telaAlugarVagasCliente(QMainWindow):
-    def __init__(self):
+    def __init__(self, informacao:list):
         super().__init__()
         self.ui = Ui_AlugarVaga()
         self.ui.setupUi(self)
+
+        self.user = informacao[0] 
+        self.password = informacao[1]
 
         self.ui.btnConfirmar.clicked.connect(self.confirmar)
         self.ui.btnCancelar.clicked.connect(self.cancelar)
@@ -988,13 +1040,13 @@ class telaAlugarVagasCliente(QMainWindow):
     @QtCore.pyqtSlot()
     def confirmar(self):
         self.alugar()
-        self.janelaHomeCliente = telaHomeCliente()
+        self.janelaHomeCliente = telaHomeCliente([self.user, self.password])
         self.janelaHomeCliente.show()
         self.close()
 
     @QtCore.pyqtSlot()
     def cancelar(self):
-        self.janelaHomeCliente = telaHomeCliente()
+        self.janelaHomeCliente = telaHomeCliente([self.user, self.password])
         self.janelaHomeCliente.show()
         self.close()
 
@@ -1024,7 +1076,7 @@ class telaAlugarVagasCliente(QMainWindow):
 
     @QtCore.pyqtSlot()
     def alugar(self):
-        documento = {
+        documentoVagas = {
             'Nome': str(self.getNome()),
             'Placa': str(self.getPlaca()),
             'Vaga': str(self.getNumeroVaga()),
@@ -1033,14 +1085,29 @@ class telaAlugarVagasCliente(QMainWindow):
             'Tempo': str(self.getIntervaloTempo()),
             'Aluguel': str(self.getValor()),
         }
-        updateVaga(documento)
+        documentoVagaCliente = {
+            'user': str(self.user),
+            'password': str(self.password),
+            'Nome': str(self.getNome()),
+            'Placa': str(self.getPlaca()),
+            'Vaga': str(self.getNumeroVaga()),
+            'Status': 'Alugada',
+            'Data': str(self.getData()),
+            'Tempo': str(self.getIntervaloTempo()),
+            'Aluguel': str(self.getValor()),
+        }
+        updateVagaCliente(documentoVagaCliente)
+        updateVaga(documentoVagas)
 
 
 class telaReservarVagasCliente(QMainWindow):
-    def __init__(self):
+    def __init__(self, informacao:list):
         super().__init__()
         self.ui = Ui_ReservarVaga()
         self.ui.setupUi(self)
+
+        self.user = informacao[0] 
+        self.password = informacao[1]
 
         self.ui.btnConfirmar.clicked.connect(self.confirmar)
         self.ui.btnCancelar.clicked.connect(self.cancelar)
@@ -1048,13 +1115,13 @@ class telaReservarVagasCliente(QMainWindow):
     @QtCore.pyqtSlot()
     def confirmar(self):
         self.alugar()
-        self.janelaHomeCliente = telaHomeCliente()
+        self.janelaHomeCliente = telaHomeCliente([self.user, self.password])
         self.janelaHomeCliente.show()
         self.close()
 
     @QtCore.pyqtSlot()
     def cancelar(self):
-        self.janelaHomeCliente = telaHomeCliente()
+        self.janelaHomeCliente = telaHomeCliente([self.user, self.password])
         self.janelaHomeCliente.show()
         self.close()
 
@@ -1080,15 +1147,28 @@ class telaReservarVagasCliente(QMainWindow):
 
     @QtCore.pyqtSlot()
     def alugar(self):
-        documento = {
+        documentoVagaCliente = {
+            'user': str(self.user),
+            'password': str(self.password),
             'Nome': str(self.getNome()),
             'Placa': str(self.getPlaca()),
             'Vaga': str(self.getNumeroVaga()),
             'Status': 'Reservada',
             'Data': str(self.getData()),
             'Tempo': str(self.getIntervaloTempo()),
+            'Aluguel': str('')
         }
-        updateVaga(documento)
+        documentoVagas = {
+            'Nome': str(self.getNome()),
+            'Placa': str(self.getPlaca()),
+            'Vaga': str(self.getNumeroVaga()),
+            'Status': 'Reservada',
+            'Data': str(self.getData()),
+            'Tempo': str(self.getIntervaloTempo()),
+            'Aluguel': str('')
+        }
+        updateVaga(documentoVagas)
+        updateVagaCliente(documentoVagaCliente)
 
 
 if __name__ == "__main__":
