@@ -993,13 +993,13 @@ class telaMinhaReserva(QMainWindow):
         self.ui.tableReservaCliente.setColumnCount(4)
 
         row = vagasCliente([self.user, self.password])
-
-        self.vaga = row["Vaga"]
         
         self.ui.tableReservaCliente.setItem(0, 0, QTableWidgetItem(row["Vaga"]))
         self.ui.tableReservaCliente.setItem(0, 1, QTableWidgetItem(row["Data"]))
         self.ui.tableReservaCliente.setItem(0, 2, QTableWidgetItem(row["Tempo"]))
         self.ui.tableReservaCliente.setItem(0, 3, QTableWidgetItem(row["Aluguel"]))
+
+        self.vaga = row["Vaga"]
 
         self.ui.btnHome.clicked.connect(self.mudarJanelaHomeCliente)
         self.ui.btnVagas.clicked.connect(self.mudarJanelaVagasCliente)
