@@ -191,7 +191,6 @@ class telaVagasFuncionario(QMainWindow):
         self.janelaMudarStatus.show()
         self.close()
 
-
     @QtCore.pyqtSlot()
     def alugarVaga(self):
         self.janelaAlugarVaga = telaAlugarFuncionario()
@@ -210,8 +209,6 @@ class telaEstacionamentoFuncionario(QMainWindow):
         super().__init__()
         self.ui = Ui_EstacionamentoFuncionario()
         self.ui.setupUi(self)
-
-        # configurar a lista de cadastro
 
         self.ui.btnHome.clicked.connect(self.mudarJanelaHomeFuncionario)
         self.ui.btnCadastros.clicked.connect(self.mudarJanelaCadastrosFuncionario)
@@ -1158,7 +1155,7 @@ class telaReservarVagasCliente(QMainWindow):
 
     @QtCore.pyqtSlot()
     def confirmar(self):
-        self.alugar()
+        self.reservar()
         self.janelaHomeCliente = telaHomeCliente([self.user, self.password])
         self.janelaHomeCliente.show()
         self.close()
@@ -1190,7 +1187,7 @@ class telaReservarVagasCliente(QMainWindow):
         return self.ui.intervaloReserva.currentText()
 
     @QtCore.pyqtSlot()
-    def alugar(self):
+    def reservar(self):
         documentoVagaCliente = {
             'user': str(self.user),
             'password': str(self.password),
