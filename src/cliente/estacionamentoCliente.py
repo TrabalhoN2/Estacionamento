@@ -43,15 +43,8 @@ class Ui_EstacionamentoCliente(object):
 "font: 14pt \"Segoe UI\";\n"
 "text-align: left;")
         self.btnVagas.setObjectName("btnVagas")
-        self.btnMinhaReserva = QtWidgets.QPushButton(self.groupBox)
-        self.btnMinhaReserva.setGeometry(QtCore.QRect(160, 0, 151, 41))
-        self.btnMinhaReserva.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
-        self.btnMinhaReserva.setStyleSheet("color: rgb(75, 74, 74);\n"
-"font: 14pt \"Segoe UI\";\n"
-"text-align: left;")
-        self.btnMinhaReserva.setObjectName("btnMinhaReserva")
         self.btnSair = QtWidgets.QPushButton(self.groupBox)
-        self.btnSair.setGeometry(QtCore.QRect(310, 0, 41, 41))
+        self.btnSair.setGeometry(QtCore.QRect(160, 0, 41, 41))
         self.btnSair.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
         self.btnSair.setStyleSheet("color: rgb(75, 74, 74);\n"
 "font: 14pt \"Segoe UI\";\n"
@@ -242,10 +235,10 @@ class Ui_EstacionamentoCliente(object):
         EstacionamentoCliente.setWindowTitle(_translate("EstacionamentoCliente", "Sistema de estacionamento - Estacionamento"))
         self.btnHome.setText(_translate("EstacionamentoCliente", "Home"))
         self.btnVagas.setText(_translate("EstacionamentoCliente", "Vagas"))
-        self.btnMinhaReserva.setText(_translate("EstacionamentoCliente", "Minha Reserva"))
         self.btnSair.setText(_translate("EstacionamentoCliente", "Sair"))
         self.label.setText(_translate("EstacionamentoCliente", "Sistema de estacionamento"))
         self.label_2.setText(_translate("EstacionamentoCliente", "Sistema de stacionamento"))
         self.label_3.setText(_translate("EstacionamentoCliente", "Estacionamento"))
         self.btnReservar.setText(_translate("EstacionamentoCliente", "Reservar"))
         self.btnAlugar.setText(_translate("EstacionamentoCliente", "Alugar"))
+        

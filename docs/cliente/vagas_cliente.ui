@@ -90,31 +90,10 @@ text-align: left;</string>
       <string>Estacionamento</string>
      </property>
     </widget>
-    <widget class="QPushButton" name="btnReservas">
-     <property name="geometry">
-      <rect>
-       <x>250</x>
-       <y>0</y>
-       <width>166</width>
-       <height>41</height>
-      </rect>
-     </property>
-     <property name="cursor">
-      <cursorShape>PointingHandCursor</cursorShape>
-     </property>
-     <property name="styleSheet">
-      <string notr="true">color: rgb(75, 74, 74);
-font: 14pt &quot;Segoe UI&quot;;
-text-align: left;</string>
-     </property>
-     <property name="text">
-      <string>Minha Reserva </string>
-     </property>
-    </widget>
     <widget class="QPushButton" name="btnSair">
      <property name="geometry">
       <rect>
-       <x>400</x>
+       <x>260</x>
        <y>0</y>
        <width>75</width>
        <height>41</height>

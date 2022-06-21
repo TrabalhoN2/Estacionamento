@@ -11,17 +11,17 @@
 from PyQt5 import QtCore, QtGui, QtWidgets
 
 
-class Ui_CadastrarCliente(object):
-    def setupUi(self, CadastrarCliente):
-        CadastrarCliente.setObjectName("CadastrarCliente")
-        CadastrarCliente.resize(1000, 650)
-        CadastrarCliente.setMinimumSize(QtCore.QSize(1000, 650))
-        CadastrarCliente.setMaximumSize(QtCore.QSize(1000, 650))
+class Ui_RealizarCadastroCliente(object):
+    def setupUi(self, RealizarCadastroCliente):
+        RealizarCadastroCliente.setObjectName("RealizarCadastroCliente")
+        RealizarCadastroCliente.resize(1000, 650)
+        RealizarCadastroCliente.setMinimumSize(QtCore.QSize(1000, 650))
+        RealizarCadastroCliente.setMaximumSize(QtCore.QSize(1000, 650))
         icon = QtGui.QIcon()
         icon.addPixmap(QtGui.QPixmap("./docs/funcionario/imagens/seguro-de-automovel.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
-        CadastrarCliente.setWindowIcon(icon)
-        CadastrarCliente.setStyleSheet("background-color: rgb(229, 229, 229);")
-        self.centralwidget = QtWidgets.QWidget(CadastrarCliente)
+        RealizarCadastroCliente.setWindowIcon(icon)
+        RealizarCadastroCliente.setStyleSheet("background-color: rgb(229, 229, 229);")
+        self.centralwidget = QtWidgets.QWidget(RealizarCadastroCliente)
         self.centralwidget.setObjectName("centralwidget")
         self.nome_completo = QtWidgets.QLineEdit(self.centralwidget)
         self.nome_completo.setGeometry(QtCore.QRect(340, 140, 321, 41))
@@ -173,28 +173,38 @@ class Ui_CadastrarCliente(object):
         self.naoVip.raise_()
         self.endereco.raise_()
         self.label_7.raise_()
-        CadastrarCliente.setCentralWidget(self.centralwidget)
-        self.menubar = QtWidgets.QMenuBar(CadastrarCliente)
+        RealizarCadastroCliente.setCentralWidget(self.centralwidget)
+        self.menubar = QtWidgets.QMenuBar(RealizarCadastroCliente)
         self.menubar.setGeometry(QtCore.QRect(0, 0, 1000, 22))
         self.menubar.setObjectName("menubar")
-        CadastrarCliente.setMenuBar(self.menubar)
-        self.statusbar = QtWidgets.QStatusBar(CadastrarCliente)
+        RealizarCadastroCliente.setMenuBar(self.menubar)
+        self.statusbar = QtWidgets.QStatusBar(RealizarCadastroCliente)
         self.statusbar.setObjectName("statusbar")
-        CadastrarCliente.setStatusBar(self.statusbar)
+        RealizarCadastroCliente.setStatusBar(self.statusbar)
 
-        self.retranslateUi(CadastrarCliente)
-        QtCore.QMetaObject.connectSlotsByName(CadastrarCliente)
+        self.retranslateUi(RealizarCadastroCliente)
+        QtCore.QMetaObject.connectSlotsByName(RealizarCadastroCliente)
 
-    def retranslateUi(self, CadastrarCliente):
+    def retranslateUi(self, RealizarCadastroCliente):
         _translate = QtCore.QCoreApplication.translate
-        CadastrarCliente.setWindowTitle(_translate("CadastrarCliente", "Sistema de estacionamento - Finalizando Cadastro"))
-        self.nome_completo.setPlaceholderText(_translate("CadastrarCliente", "Nome completo"))
-        self.label.setText(_translate("CadastrarCliente", "Finalizando Cadastro"))
-        self.telefone.setPlaceholderText(_translate("CadastrarCliente", "Telefone"))
-        self.placa.setPlaceholderText(_translate("CadastrarCliente", "Placa do carro"))
-        self.btnSalvar.setText(_translate("CadastrarCliente", "Salvar"))
-        self.cpf.setPlaceholderText(_translate("CadastrarCliente", "CPF"))
-        self.label_6.setText(_translate("CadastrarCliente", "Deseja tornar-se cliente VIP?"))
-        self.vip.setText(_translate("CadastrarCliente", "Tornar-se cliente VIP"))
-        self.naoVip.setText(_translate("CadastrarCliente", "Não se tornar cliente VIP"))
-        self.endereco.setPlaceholderText(_translate("CadastrarCliente", "Endereço"))
+        RealizarCadastroCliente.setWindowTitle(_translate("RealizarCadastroCliente", "Sistema de estacionamento - Finalizando Cadastro"))
+        self.nome_completo.setPlaceholderText(_translate("RealizarCadastroCliente", "Nome completo"))
+        self.label.setText(_translate("RealizarCadastroCliente", "Finalizando Cadastro"))
+        self.telefone.setPlaceholderText(_translate("RealizarCadastroCliente", "Telefone"))
+        self.placa.setPlaceholderText(_translate("RealizarCadastroCliente", "Placa do carro"))
+        self.btnSalvar.setText(_translate("RealizarCadastroCliente", "Salvar"))
+        self.cpf.setPlaceholderText(_translate("RealizarCadastroCliente", "CPF"))
+        self.label_6.setText(_translate("RealizarCadastroCliente", "Deseja tornar-se cliente VIP?"))
+        self.vip.setText(_translate("RealizarCadastroCliente", "Tornar-se cliente VIP"))
+        self.naoVip.setText(_translate("RealizarCadastroCliente", "Não se tornar cliente VIP"))
+        self.endereco.setPlaceholderText(_translate("RealizarCadastroCliente", "Endereço"))
+
+
+if __name__ == "__main__":
+    import sys
+    app = QtWidgets.QApplication(sys.argv)
+    RealizarCadastroCliente = QtWidgets.QMainWindow()
+    ui = Ui_RealizarCadastroCliente()
+    ui.setupUi(RealizarCadastroCliente)
+    RealizarCadastroCliente.show()
+    sys.exit(app.exec_())

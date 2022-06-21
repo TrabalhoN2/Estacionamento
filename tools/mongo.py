@@ -11,7 +11,7 @@ def client():
 # Função de inserção de um cliente
 def cadastroCliente(document):
     db = client()
-    cliente = db["loginCliente"]         # Definindo o documento
+    cliente = db["clientes"]         # Definindo o documento
     cliente.insert_one(document)    # Inserindo um documento
 
 # Função de inserção de um funcioanrio
@@ -19,6 +19,11 @@ def cadastroFuncionario(document):
     db = client()
     funcionario = db["funcionarios"]
     funcionario.insert_one(document)
+
+def cadastrarCliente(document):
+    db = client()
+    cliente = db["loginCliente"]
+    cliente.insert_one(document)
 
 
 def buscarCliente(user, password):
@@ -63,13 +68,7 @@ def vagasDB(indice):
     db = client()
     vagas = db["vagas"]
     return vagas.find_one({ 'Vaga': indice })
-
-
-def vagasCliente(info):
-    db = client()
-    vagas = db["loginCliente"]
-    return vagas.find_one({ 'user': info[0], 'password': info[1] })
-
+    
 
 def updateStatusVaga(vaga, status):
     query = { "Vaga": vaga }
@@ -90,18 +89,4 @@ def updateVaga(row):
                            "Aluguel": row["Aluguel"] }}
     db = client()
     vagas = db["vagas"]   
-    vagas.update_one(query, newQuery) 
-
-
-def updateVagaCliente(row):
-    query = { "user": row["user"], "password": row["password"] }
-    newQuery = { "$set": { "Nome": row["Nome"],
-                           "Placa": row["Placa"],
-                           "Vaga": row["Vaga"],
-                           "Status": row["Status"],
-                           "Data": row["Data"],
-                           "Tempo": row["Tempo"],
-                           "Aluguel": row["Aluguel"] }}
-    db = client()
-    vagas = db["loginCliente"]   
     vagas.update_one(query, newQuery) 

@@ -89,31 +89,10 @@ text-align: left;</string>
       <string>Vagas</string>
      </property>
     </widget>
-    <widget class="QPushButton" name="btnMinhaReserva">
-     <property name="geometry">
-      <rect>
-       <x>160</x>
-       <y>0</y>
-       <width>151</width>
-       <height>41</height>
-      </rect>
-     </property>
-     <property name="cursor">
-      <cursorShape>PointingHandCursor</cursorShape>
-     </property>
-     <property name="styleSheet">
-      <string notr="true">color: rgb(75, 74, 74);
-font: 14pt &quot;Segoe UI&quot;;
-text-align: left;</string>
-     </property>
-     <property name="text">
-      <string>Minha Reserva</string>
-     </property>
-    </widget>
     <widget class="QPushButton" name="btnSair">
      <property name="geometry">
       <rect>
-       <x>310</x>
+       <x>160</x>
        <y>0</y>
        <width>41</width>
        <height>41</height>
