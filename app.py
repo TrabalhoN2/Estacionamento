@@ -72,7 +72,7 @@ class telaHomeFuncionario(QMainWindow):
 
     @QtCore.pyqtSlot()
     def sair(self):
-        self.close()
+        return self.close()
 
 
 class telaCadastrosFuncionario(QMainWindow):
@@ -109,29 +109,29 @@ class telaCadastrosFuncionario(QMainWindow):
     def mudarJanelaHomeFuncionario(self):
         self.janelaHomeFuncionario = telaHomeFuncionario()
         self.janelaHomeFuncionario.show()
-        self.close()
+        return self.close()
 
     @QtCore.pyqtSlot()
     def mudarJanelaVagasFuncionario(self):
         self.janelaVagas = telaVagasFuncionario()
         self.janelaVagas.show()
-        self.close()
+        return self.close()
     
     @QtCore.pyqtSlot()
     def mudarJanelaEstacionamentoFuncionario(self):
         self.janelaEstacionamento = telaEstacionamentoFuncionario()
         self.janelaEstacionamento.show()
-        self.close()
+        return self.close()
 
     @QtCore.pyqtSlot()
     def sair(self):
-        self.close()
+        return self.close()
 
     @QtCore.pyqtSlot()
     def novoCadastro(self):
         self.janelaRealizarCadastro = telaRealizarCadastroFuncionario()
         self.janelaRealizarCadastro.show()
-        self.close()
+        return self.close()
 
 
 class telaVagasFuncionario(QMainWindow):
@@ -768,7 +768,7 @@ class telaLogin(QMainWindow):
 
     @QtCore.pyqtSlot()
     def fecharFrame(self):
-        self.ui.frameErro.hide()
+        return self.ui.frameErro.hide()
 
     @QtCore.pyqtSlot()
     def entrarCliente(self):
