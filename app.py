@@ -511,7 +511,7 @@ class telaHomeCliente(QMainWindow):
 
     @QtCore.pyqtSlot()
     def sair(self):
-        self.close()
+        return self.close()
 
 
 class telaVagasCliente(QMainWindow):
@@ -751,9 +751,9 @@ class telaLogin(QMainWindow):
     @QtCore.pyqtSlot()
     def usuarioLogin(self):
         if (self.ui.radioButtonCliente.isChecked()):
-            self.entrarCliente()
+            return self.entrarCliente()
         else:
-            self.entrarFuncionario()
+            return self.entrarFuncionario()
 
     @QtCore.pyqtSlot()
     def mudarJanelaCadastrar(self):
@@ -887,7 +887,7 @@ class telaCadastroCliente(QMainWindow):
     def closeEvent(self, evento):   # Função que fecha a janela de cadastro e volta para a de login
         self.telaLogin = telaLogin()
         self.telaLogin.show()
-        evento.accept()
+        return evento.accept()
 
     @QtCore.pyqtSlot()
     def getNome(self):       # Fuções para pegar o texto digitado nos campos
@@ -919,13 +919,13 @@ class telaConfirmacaoPagamento(QMainWindow):
     def confirmar(self):
         self.janelaConfirmar = telaConfirmarPagamento()
         self.janelaConfirmar.show()
-        self.close()
+        return self.close()
     
     @QtCore.pyqtSlot()
     def cancelar(self):
         self.janelaHome = telaHomeFuncionario()
         self.janelaHome.show()
-        self.close()
+        return self.close()
 
 
 class telaConfirmarPagamento(QMainWindow):
@@ -940,7 +940,7 @@ class telaConfirmarPagamento(QMainWindow):
     def fechar(self):
         self.janelaHome = telaHomeFuncionario()
         self.janelaHome.show()
-        self.close()
+        return self.close()
 
 
 class telaConfirmarAlteracao(QMainWindow):
@@ -955,7 +955,7 @@ class telaConfirmarAlteracao(QMainWindow):
     def fechar(self):
         self.janelaHome = telaHomeFuncionario()
         self.janelaHome.show()
-        self.close()
+        return self.close()
 
 
 class telaConfirmarReserva(QMainWindow):
@@ -970,7 +970,7 @@ class telaConfirmarReserva(QMainWindow):
     def fechar(self):
         self.janelaHomeFuncionario = telaHomeFuncionario()
         self.janelaHomeFuncionario.show()
-        self.close()
+        return self.close()
 
 
 if __name__ == "__main__":
