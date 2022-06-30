@@ -567,7 +567,7 @@ class telaVagasCliente(QMainWindow):
 
     @QtCore.pyqtSlot()
     def sair(self):
-        self.close()
+        return self.close()
 
 
 class telaEstacionamentoCliente(QMainWindow):
@@ -609,7 +609,7 @@ class telaEstacionamentoCliente(QMainWindow):
 
     @QtCore.pyqtSlot()
     def sair(self):
-        self.close()
+        return self.close()
 
 
 class telaAlugarVagasCliente(QMainWindow):
@@ -626,13 +626,13 @@ class telaAlugarVagasCliente(QMainWindow):
         self.alugar()
         self.janelaHomeCliente = telaHomeCliente()
         self.janelaHomeCliente.show()
-        self.close()
+        return self.close()
 
     @QtCore.pyqtSlot()
     def cancelar(self):
         self.janelaHomeCliente = telaHomeCliente()
         self.janelaHomeCliente.show()
-        self.close()
+        return self.close()
 
     @QtCore.pyqtSlot()
     def getNome(self):
@@ -686,13 +686,13 @@ class telaReservarVagasCliente(QMainWindow):
         self.reservar()
         self.janelaHomeCliente = telaHomeCliente()
         self.janelaHomeCliente.show()
-        self.close()
+        return self.close()
 
     @QtCore.pyqtSlot()
     def cancelar(self):
         self.janelaHomeCliente = telaHomeCliente()
         self.janelaHomeCliente.show()
-        self.close()
+        return self.close()
 
     @QtCore.pyqtSlot()
     def getNome(self):
