@@ -1,4 +1,4 @@
-from app import telaCadastroCliente, telaCadastrosFuncionario, telaConfirmacaoPagamento, telaConfirmarAlteracao, telaConfirmarPagamento, telaConfirmarReserva, telaHomeCliente, telaHomeFuncionario, telaLogin, telaMudarStatusFuncionario
+from app import telaAlugarVagasCliente, telaCadastroCliente, telaCadastrosFuncionario, telaConfirmacaoPagamento, telaConfirmarAlteracao, telaConfirmarPagamento, telaConfirmarReserva, telaEstacionamentoCliente, telaHomeCliente, telaHomeFuncionario, telaLogin, telaMudarStatusFuncionario, telaReservarVagasCliente, telaVagasCliente
 
 
 def test_home_funcionario_sair(qtbot):
@@ -16,7 +16,9 @@ def test_novo_cadastro_funcionario_novo_cadastro(qtbot):
 def test_situacao_vaga_get_situacao(qtbot):
     test_mudar_situacao_vaga = telaMudarStatusFuncionario()
     qtbot.addWidget(test_mudar_situacao_vaga)
-    assert test_mudar_situacao_vaga.getSituacao() == 'Vazia'
+    assert (test_mudar_situacao_vaga.getSituacao() == 'Vazia' or 
+           test_mudar_situacao_vaga.getSituacao() == 'Ocupada' or 
+           test_mudar_situacao_vaga.getSituacao() == 'Reservada')
 
 
 def test_sair_tela_home_cliente_sair(qtbot):
@@ -89,3 +91,39 @@ def test_confirmar_reserva_fechar(qtbot):
     test_confirmar_reserva = telaConfirmarReserva()
     qtbot.addWidget(test_confirmar_reserva)
     assert test_confirmar_reserva.fechar() == True
+
+
+def test_tela_vagas_cliente_sair(qtbot):
+    test_vagas_cliente_sair = telaVagasCliente()
+    qtbot.addWidget(test_vagas_cliente_sair)
+    assert test_vagas_cliente_sair.sair() == True
+
+
+def test_alugar_vagas_cliente_cancelar(qtbot):
+    test_cancelar_vaga_cliente = telaAlugarVagasCliente()
+    qtbot.addWidget(test_cancelar_vaga_cliente)
+    assert test_cancelar_vaga_cliente.cancelar() == True
+
+
+def test_alugar_vagas_cliente_confirmar(qtbot):
+    test_confirmar_vaga_cliente = telaAlugarVagasCliente()
+    qtbot.addWidget(test_confirmar_vaga_cliente)
+    assert test_confirmar_vaga_cliente.confirmar() == True
+
+
+def test_reservar_vagas_cliente_cancelar(qtbot):
+    test_cancelar_reserva_cliente = telaReservarVagasCliente()
+    qtbot.addWidget(test_cancelar_reserva_cliente)
+    assert test_cancelar_reserva_cliente.cancelar() == True
+
+
+def test_reservar_vagas_cliente_confirmar(qtbot):
+    test_confirmar_reserva_cliente = telaReservarVagasCliente()
+    qtbot.addWidget(test_confirmar_reserva_cliente)
+    assert test_confirmar_reserva_cliente.confirmar() == True
+
+
+def test_estacionamento_cliente_sair(qtbot):
+    test_sair_estacionamento_cliente = telaEstacionamentoCliente()
+    qtbot.addWidget(test_sair_estacionamento_cliente)
+    assert test_sair_estacionamento_cliente.sair() == True
